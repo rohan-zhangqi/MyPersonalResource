@@ -1,5 +1,8 @@
 # 《Head First设计模式》笔记
 
+Eirc Freeman & Elisabeth Freeman with Kathy Sierra & Bert Bates著  
+中国电力出版社
+
 **设计原则**（Page 9）
 > 找出应用中可能需要变化之处，把它们独立出来，不要和那些不需要变化的代码混在一起。
 
