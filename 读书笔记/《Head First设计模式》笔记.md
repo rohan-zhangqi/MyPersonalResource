@@ -3,7 +3,7 @@
 Eirc Freeman & Elisabeth Freeman with Kathy Sierra & Bert Bates著  
 中国电力出版社
 
-书签： Page101
+书签： Page115
 
 **设计原则**（Page 9）
 > 找出应用中可能需要变化之处，把它们独立出来，不要和那些不需要变化的代码混在一起。
@@ -18,7 +18,7 @@ Eirc Freeman & Elisabeth Freeman with Kathy Sierra & Bert Bates著
 > 多用组合，少用继承。
 
 
-## 策略模式（Strategy Pattern）
+## 1、策略模式（Strategy Pattern）
 > **策略模式**定义了算法族，分别封装起来，让它们之间可以互相替换，此模式让算法的变化独立于使用算法的客户。
 
 书中示例关键词：鸭子、不同的样子、不同的飞行方式、不同的鸣叫方式
@@ -29,7 +29,7 @@ Eirc Freeman & Elisabeth Freeman with Kathy Sierra & Bert Bates著
 
 良好的OO设计必须具备**可复用、可扩充、可维护**三个特性。
 
-## 观察者模式（Observer Pattern）
+## 2、观察者模式（Observer Pattern）
 
 出版者 + 订阅者 = 观察者模式 
 
@@ -51,7 +51,7 @@ java.util.Observable的黑暗面
 
 有多个观察者时，不可以依赖特定的通知次序。
 
-## 装饰者模式（）
+## 3、装饰者模式（Decorator Pattern）
 
 **设计原则**（Page86）
 > 类应该对扩展开放，对修改关闭。
@@ -61,7 +61,7 @@ java.util.Observable的黑暗面
 - 装饰者和被装饰对象有相同的超类型。
 - 你可以用一个或多个装饰者包装一个对象。
 - 既然装饰者和被装饰对象有相同的超类型，所以在任何需要原始对象（被包装的）场合，可以用装饰过的对象代替它。
-- **装饰者可以在所委托被装饰者的行为之前与/或之后，加上自己的行为，已达到特定的目的。**
+- **装饰者可以在所委托被装饰者的行为之前与/或之后，加上自己的行为，以达到特定的目的。**
 - 对象可以在任何时候被装饰，所以可以在运行时动态地、不限量地用你喜欢的装饰者来装饰对象。
 
 > **装饰者模式**动态地将责任附加到对象上。若要扩展功能，装饰者提供了比继承更有弹性的替代方案。
@@ -145,3 +145,11 @@ FileInputStream、StringBufferInputStream、ByteArrayInputStream、FilterInputSt
 PushbackInputStream、BufferedInputStream、DataInputStream、LineNumberInputStream
 
 Java I/O在使用装饰者模式的同时，也引入了一个“缺点”：利用装饰者模式，常常造成设计中有大量的小类，数量实在太多，可能会造成使用此API程序员的困扰。
+
+**装饰者会导致设计中出现许多小对象，如果过度使用，会让程序变得很复杂。**
+
+
+## 4、工厂模式（Factory Pattern）
+
+静态工厂不需要使用创建对象的方法来实例化对象，但不能通过继承来改变创建方法的行为。
+
