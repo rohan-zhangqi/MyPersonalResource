@@ -3,7 +3,7 @@
 Eirc Freeman & Elisabeth Freeman with Kathy Sierra & Bert Bates著  
 中国电力出版社
 
-书签： Page131
+书签： Page135
 
 **设计原则**（Page 9）
 > 找出应用中可能需要变化之处，把它们独立出来，不要和那些不需要变化的代码混在一起。
@@ -156,4 +156,111 @@ Java I/O在使用装饰者模式的同时，也引入了一个“缺点”：利
 **在设计模式中，所谓的“实现一个接口”并“不一定”表示“写一个类，并利用implements关键词来实现某个Java接口”。“实现一个接口”泛指实现某个超类型（可以是类或接口）的某个方法。**
 
 书中例子关键词：披萨店、相同的制作流程、不同地域的披萨店、创建不同口味的披萨（工厂）
+
+    public abstract class PizzaStore {
+    	public Pizza orderPizza(String type){
+    		Pizza pizza;
+    		pizza = createPizza(type);
+    		pizza.prepare();
+    		pizza.bake();
+    		pizza.cut();
+    		pizza.box();
+    		return pizza;
+    	}
+    	abstract Pizza createPizza(String type);
+    }
+    
+    public class NYPizzaStore extends PizzaStore{
+    	Pizza createPizza(String item){
+    		if(item.equals("cheese")){
+    			return new NYStyleCheesePizza();
+    		} else if(item.equals("veggie")){
+    			return new NYStyleVeggiePizza();
+    		} else if(item.equals("clam")){
+    			return new NYStyleClamPizza();
+    		} else if(item.equals("pepperoni")){
+    			return new NYStylePepperoniPizza();
+    		} else {
+    			return null;
+    		}
+    	}
+    }
+    
+    public abstract class Pizza {
+    	String name;
+    	String dough;
+    	String sauce;
+    	ArrayList toppings = new ArrayList();
+    
+    	void prepare(){
+    		System.out.println("Preparing " + name);
+    		System.out.println("Tossing dough...");
+    		System.out.println("Adding sauce...");
+    		System.out.println("Adding toppings: ");
+    		for(int i = 0; i < toppings.size(); i++){
+    			System.out.println("   " + toppings.get(i));
+    		}
+    	}
+    
+    	void bake(){
+    		System.out.println("Bake for 25 minutes at 350");
+    	}
+    
+    	void cut(){
+    		System.out.println("Cutting the pizza into diagonal slices");
+    	}
+    
+    	void box(){
+    		System.out.println("Place pizza in official PizzaStore box");
+    	}
+    
+    	public String getName(){
+    		return name;
+    	}
+    }
+    
+    public class NYStyleCheesePizza extends Pizza {
+    	public NYStyleCheesePizza(){
+    		name = "NY Style Sauce and Cheese Pizza";
+    		dough = "Thin Crust Dough";
+    		sauce = "Marinara Sauce";
+    
+    		toppings.add("Grated Reggiano Cheese");
+    	}
+    }
+    
+    public class ChicagoStyleCheesePizza extends Pizza {
+    	public ChicagoStyleCheesePizza(){
+    		name = "Chicago Style Deep Dish Cheese Pizza";
+    		dough = "Extra Thick Crust Dough";
+    		sauce = "Plum Tomato Sauce";
+    
+    		toppings.add("Shredded Mozzarella Cheese");
+    	}
+    
+    	void cut(){
+    		System.out.println("Cutting the pizza into square slices");
+    	}
+    }
+    
+    public class PizzaTestDrive{
+    	public static void main(String[] args){
+    		PizzaStore nyStore = new NYPizzaStore();
+    		PizzaStore chicagoStore = new ChicagoPizzaStore();
+    
+    		Pizza pizza = nyStore.orderPizza("cheese");
+    		System.out.println("Ethan orderd a " + pizza.getName() + "\n");
+    
+    		pizza = chicagoStore.orderPizza("cheese");
+    		System.out.println("Joel orderd a " + pizza.getName() + "\n");
+    	}
+    }
+
+> **工厂方法模式**定义了一个创建对象的接口，但由子类决定要实例化的类是哪一个。工厂方法让类把实例化推迟到子类。
+
+工厂方法不一定是抽象的，可以定义一个默认的工厂方法来产生某些具体的产品，这么一来，即使创建者没有任何子类，依然可以创建产品。
+
+工厂方法带参数时，被称为“参数化工厂方法”。
+
+如何限制传入工厂方法的参数，可通过创建代表参数类型的对象和使用静态常量或者Java5所支持的enum。
 
