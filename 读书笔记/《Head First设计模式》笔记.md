@@ -3,7 +3,7 @@
 Eirc Freeman & Elisabeth Freeman with Kathy Sierra & Bert Bates著  
 中国电力出版社
 
-书签： Page135
+书签： Page141
 
 **设计原则**（Page 9）
 > 找出应用中可能需要变化之处，把它们独立出来，不要和那些不需要变化的代码混在一起。
@@ -264,3 +264,18 @@ Java I/O在使用装饰者模式的同时，也引入了一个“缺点”：利
 
 如何限制传入工厂方法的参数，可通过创建代表参数类型的对象和使用静态常量或者Java5所支持的enum。
 
+
+依赖倒置原则（Dependency Inversion Principle）
+**设计原则**（Page 139）
+> 要依赖抽象，不用依赖具体类。
+
+**不能让高层组件依赖低层组件，而且，不管高层或者低层组件，“两者”都应该依赖于抽象。**
+
+PizzaStore
+
+Pizza
+
+NYStyleCheesePizza、NYStylePepperoniPizza、……
+
+
+依赖倒置：低层组件依赖高层的抽象。高层组件也依赖相同的抽象。
