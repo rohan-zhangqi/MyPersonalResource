@@ -289,3 +289,124 @@ NYStyleCheesePizza、NYStylePepperoniPizza、……
 应尽量遵守上述原则。
 
 
+**确保原料的一致**
+
+    public interface PizzaIngredientFactory{
+    	public Dough createDough();
+    	public Sauce createSauce();
+    	public Cheese createCheese();
+    	public Veggies[] createVeggies();
+    	public Pepperoni createPepperoni();
+    	public Clams createClam();
+    }
+    
+    public class NYPizzaIngredientFactory implements PizzaIngredientFactory{
+    	public Dough createDough(){
+    		return new ThinCrustDough();
+    	}
+    
+    	public Sauce createSauce(){
+    		return new MarinaraSauce();
+    	}
+    
+    	public Cheese createCheese(){
+    		return new ReggianoCheese();
+    	}
+    
+    	public Veggeis[] createVeggeis(){
+    		Veggies veggeis[] = {new Garlic(), new Onion(), new Mushroom(), new RedPepper()};
+    		return veggies;
+    	}
+    
+    	public Pepperoni createPepperoni(){
+    		return new SlicedPeppernoi();
+    	}
+    
+    	public Clams createClam(){
+    		return new FreshClams();
+    	}
+    }
+    
+    public abstract class Pizza{
+    	String name;
+    	Dough dough;
+    	Sauce sauce;
+    	Veggies veggeis[];
+    	Cheese cheese;
+    	Pepperoni pepperoni;
+    	Clams clam;
+    
+    	abstract void prepare();
+    
+    	void bake(){
+    		System.out.println("Bake for 25 minutes at 350");
+    	}
+    
+    	void cut(){
+    		System.out.println("Cutting the pizza into diagonal slices");
+    	}
+    
+    	void setName(String name){
+    		this.name = name;
+    	}
+    
+    	String getName(){
+    		return name;
+    	}
+    
+    	public String toString(){
+    		//这里是打印披萨的代码
+    	}
+    }
+    
+    public class CheesePizza extend Pizza{
+    	PizzaIngredientFactory ingredientFactory;
+    
+    	public CheesePizza(PizzaIngreientFactory ingredientFactory){
+    		this.ingredientFactory = ingredientFactory;
+    	}
+    
+    	void prepare(){
+    		System.out.println("Preparing " + name);
+    		dough = ingredientFactory.createDough();
+    		sauce = ingredientFactory.createSauce();
+    		cheese = ingredientFactory.createCheese();
+    	}
+    }
+    
+    public class ClamPizza extends Pizza{
+    	PizzaIngredientFactory ingredientFactory;
+    
+    	public ClamPizza(PizzaIngredientFactory ingredientFactory){
+    		this.ingredientFactory = ingredientFactory;
+    	}
+    
+    	void prepare(){
+    		System.out.println("Preparing " + name);
+    		dough = ingredientFactory.createDough();
+    		sauce = ingredientFactory.createSauce();
+    		cheese = ingredientFactory.createCheese();
+    		clam = ingredientFactory.createClam();
+    	}
+    }
+    
+    public class NYPizzaStore extends PizzaStore{
+    	protected Pizza createPizza(String item){
+    		Pizza pizza = null;
+    		PizzaIngredientFactory ingredientFactory = new NYPizzaIngredientFactory();
+    
+    		if(item.equals("cheese")){
+    			pizza = new CheesePizza(ingredientFactory);
+    			pizza.setNmae("Ney York Style Cheese Pizza");
+    		} else if(item.equals("veggie")){
+    			pizza = new VeggiePizza(ingredientFactory);
+    			pizza.setName("New York Style Veggie Pizza");
+    		} else if(item.equals("clam")){
+    			pizza = new ClamPizza(ingredientFactory);
+    			pizza.setName("New York Style Clam Pizza");
+    		} else if(item.equals("pepperoni")){
+    			pizza = new PepperoniPizza(ingredientFactory);
+    			pizza.setName("New York Style Pepperoni Pizza");
+    		}
+    	}
+    } 
