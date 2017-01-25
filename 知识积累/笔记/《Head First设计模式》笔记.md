@@ -3,7 +3,9 @@
 Eirc Freeman & Elisabeth Freeman with Kathy Sierra & Bert Bates著  
 中国电力出版社
 
-书签： Page155
+书评： 写书的范例，写得特别好
+
+书签： Page169
 
 **设计原则**（Page 9）
 > 找出应用中可能需要变化之处，把它们独立出来，不要和那些不需要变化的代码混在一起。
@@ -409,4 +411,15 @@ NYStyleCheesePizza、NYStylePepperoniPizza、……
     			pizza.setName("New York Style Pepperoni Pizza");
     		}
     	}
-    } 
+    }
+
+## 5、抽象工厂模式
+> **抽象工厂模式**提供一个接口，用于创建相关或依赖对象的**家族**，而不需要明确指定具体类。
+
+抽象工厂的任务是定义一个负责创建一组产品的接口。这个接口内的每个方法都负责创建一个具体产品，同时我们利用实现抽象工厂的子类来提供这些具体的做法。 
+
+**工厂模式与抽象工厂模式的区别**
+待梳理...
+
+## 6、单例模式（Singleton Pattern）
+应用场景：线程池（threadpool）、
