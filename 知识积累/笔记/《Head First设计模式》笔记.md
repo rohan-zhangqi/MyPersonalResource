@@ -5,8 +5,6 @@ Eirc Freeman & Elisabeth Freeman with Kathy Sierra & Bert Bates著
 
 书评： 写书的范例，写得特别好
 
-书签： Page169
-
 **设计原则**（Page 9）
 > 找出应用中可能需要变化之处，把它们独立出来，不要和那些不需要变化的代码混在一起。
 
@@ -422,4 +420,11 @@ NYStyleCheesePizza、NYStylePepperoniPizza、……
 待梳理...
 
 ## 6、单例模式（Singleton Pattern）
-应用场景：线程池（threadpool）、
+应用场景：线程池（threadpool）、缓存（cache）、对话框、处理偏好设置和注册表（registry）的对象、日志对象，充当打印机、显卡等设备的驱动程序的对象。
+
+构造器私有
+静态方法获取实例
+
+书签： 已看完Page173
+
+2017-04-19 Page169-Page173
