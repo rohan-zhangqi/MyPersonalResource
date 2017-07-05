@@ -422,9 +422,95 @@ NYStyleCheesePizza、NYStylePepperoniPizza、……
 ## 6、单例模式（Singleton Pattern）
 应用场景：线程池（threadpool）、缓存（cache）、对话框、处理偏好设置和注册表（registry）的对象、日志对象，充当打印机、显卡等设备的驱动程序的对象。
 
-构造器私有
+关键要素：  
+构造器私有  
 静态方法获取实例
 
-书签： 已看完Page173
+    public Class Singleton {
+		//利用一个静态变量来记录Singleton类的唯一实例
+		private static Singleton uniqueInstance;
+    	private Singleton(){}
+    
+    	public static Singleton getInstance(){
+			if(uniqueInstance == null){
+				uniqueInstance = new Singleton();
+			}
+    		return uniqueInstance;
+    	}
+
+		//这里是其他的有用方法
+    }
+
+
+> **单件模式**确保一个类只有一个实例，并提供一个全局访问点。
+
+上述代码在多线程情况下，可能会实例化两个Singleton，这就导致了利用单例模式控制对象的实例化失败了。
+
+	//同步确实可以解决问题，但是同步会降低性能，而且我们只需要在第一次执行此方法时，才真正需要同步。一旦设置好uniqueInstance变量，就不需要同步这个方法了。
+	public Class Singleton {
+		//利用一个静态变量来记录Singleton类的唯一实例
+		private static Singleton uniqueInstance;
+    	private Singleton(){}
+    
+    	public static synchronized Singleton getInstance(){
+			if(uniqueInstance == null){
+				uniqueInstance = new Singleton();
+			}
+    		return uniqueInstance;
+    	}
+
+		//这里是其他的有用方法
+    }
+
+如何改善多线程  
+
+1、如果getInstance()的性能对应用程序不是很关键，就什么都别做      
+同步一个方法可能造成程序执行效率下降100倍。因此，如果将getInstance()的程序使用在频繁运行的地方，就得重新考虑。
+
+2、使用“急切”创建实例，而不是延迟实例化的做法  
+如果应用程序总是创建并使用单件实例，或者在创建和运行时方面的负担不太繁重，你可能想要急切（eagerly）创建此单件。  
+
+	//在静态初始化器（static initializen）中创建单件。这段代码保证了线程安全（thread safe）
+	//JVM在加载这个类时马上创建此唯一的单件实例。JVM保证在任何线程访问uniqueInstance静态变量之前，一定先创建此实例。
+    public class Singleton {
+    	private static Singleton uniqueInstance = new Singleton();
+    
+    	private Singleton(){}
+    
+    	public static Singleton getInstance(){
+    		return uniqueInstance;
+    	}
+    }
+
+3、用“双重检查加锁”，在getInstance()减少使用同步  
+利用双重检查加锁（double-checked locking），首先检查是否实例已经创建，如果尚未创建，“才”进行同步。这样一来，只有第一次会同步。  
+
+	public class Singleton {
+		//volatile关键词确保：当uniqueInstance变量被初始化成Singleton实例时，多个线程正确地处理uniqueInstance变量
+    	private volatile static Singleton uniqueInstance;
+    
+    	private Singleton(){}
+    
+    	public static Singleton getInstance(){
+			//检查实例，如果不存在，就进入同步区块
+			if(uniqueInstance == null){
+				synchronized(Singleton.class){
+					//进入区块后，再检查一次。如果仍是null，才创建实例
+					if(uniqueInstance == null){
+						uniqueInstance = new Singleton();
+					}
+				}
+			}
+    		return uniqueInstance;
+    	}
+    }
+
+> 双重检查加锁不适用于1.4及更早版本的Java！  
+> 在1.4及更早版本的Java中，许多JVM对于volatile关键词的实现会导致双重检查加锁的失败。
+
+
+书签： 已看完Page182
 
 2017-04-19 Page169-Page173
+2017-06-27 Page174-Page177
+2017-06-28 Page178-Page182

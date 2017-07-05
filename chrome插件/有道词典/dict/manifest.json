@@ -1,0 +1,25 @@
+{
+   "background": {"scripts": ["options.js", "background.js"]},
+   "browser_action": {
+      "default_icon": "icon_dict.gif",
+      "default_popup": "options.html"
+   },
+   "content_scripts": [ {
+      "js": [ "lookup.js" ],
+      "matches": [ "http://*/*", "https://*/*" ]
+   } ],
+   "description": "\u652F\u6301Chrome\u6D4F\u89C8\u5668\u7684\u5212\u8BCD\u7FFB\u8BD1",
+   "icons": {
+      "128": "icon-128.png",
+      "64": "icon.png"
+   },
+   "web_accessible_resources": [
+      "ab20.png",
+      "ydd-sprite.png"
+   ],
+   "name": "\u6709\u9053\u8BCD\u5178Chrome\u5212\u8BCD\u63D2\u4EF6",
+   "options_page": "options.html",
+   "permissions": [ "http://*/*", "https://*/*" ],
+   "version": "1.30",
+   "manifest_version": 2
+}
