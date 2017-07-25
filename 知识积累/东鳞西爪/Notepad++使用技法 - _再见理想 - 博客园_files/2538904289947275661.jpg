@@ -1,0 +1,68 @@
+<html><head><title>URL过滤</title>
+<meta content="text/html; charset=utf-8" http-equiv="Content-Type"><link rel="stylesheet" type="text/css" href="../css/terminal.css">
+<script language="JavaScript" type="text/JavaScript">
+
+// Added by csz in [2011-9-13] for the customize for malaysia: access denied page should show ip addr information etc.
+var strShow = "According to the access control policy, you are not allowed to access this website. If you have any doubt, please contact the network administrator.";
+
+function getParamString(name)
+{
+    var strHref = window.location.href;
+	var intPos = strHref.indexOf("?");
+    if(-1 == intPos)
+    {
+        return '';
+    }
+    
+	var strRight = strHref.substr(intPos + 1);  // get the parameter from url
+	var parameters = strRight.split("&"); 
+	
+    var pos, paraName, paraValue;
+	
+	for(var i=0; i<parameters.length; i++)
+    {
+        // get psoition of equality operator
+        pos = parameters[i].indexOf('=');
+        if(pos == -1)
+        {
+            continue;
+        }
+ 
+        // get name and value from url
+        paraName = parameters[i].substring(0, pos);
+        paraValue = parameters[i].substring(pos + 1);
+ 
+        // if name search hit, then return current value. And restore + operator to blank space  
+        if(paraName == name)
+        {
+            return decodeURIComponent(paraValue.replace(/\+/g, " "));
+        }
+    }
+    
+    return '';
+}
+
+function onInit()
+{
+    //var strIp   = getParamString("ip");
+    var strType = getParamString("url_type");
+    var strPlc  = getParamString("plc_name");
+    
+    if(strPlc.indexOf("#")>-1){
+    	strPlc = strPlc.match(/(.*)#/)[1];
+    }
+    document.getElementById("strType").innerHTML = strType;
+    document.getElementById("strPlc").innerHTML = strPlc;
+}
+
+</script>
+
+<meta name="GENERATOR" content="MSHTML 11.00.9600.18538"></head>
+<body onload="onInit()">
+<div id="content">
+<h1 class="warning">访问被拒绝</h1>
+<div class="partition"><span class="partition_left" style="WIDTH: 220px"></span></div>
+<div id="ContentShow" name="ContentShow">
+<p class="b_distance">您尝试访问的网站类型属于你所在部门禁止访问的网站类型，已经被部门上网策略拒绝。</p><br><br>
+<p class="b_distance">如需访问请使用<b style="BACKGROUND-COLOR: rgb(255,255,0)">楼层</b><b style="BACKGROUND-COLOR: rgb(255,255,0)">公共上网机</b>进行访问；或<span style="background-color: rgb(255, 255, 0);"><b>提交流程</b></span>申请长期开通：OA首页-流程与IT-管理流程与IT-信息系统权限申请-网络权限/上网权限，注明网址及使用用途。</p><br><br>
+<p class="b_distance">如有疑问，请联系信息安全部<strong><font color="#ff0000">冯诚波 分机20317</font></strong>，给您带来的不便敬请谅解。</p></div></div></body></html>
